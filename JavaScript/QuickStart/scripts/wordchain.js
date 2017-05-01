@@ -30,4 +30,4 @@ function* chain ( initial, final ) {
 }
 
 var result = Array.from(chain("cardio", "donuts"));
-alert(result);
+console.log(result);
