@@ -9,9 +9,7 @@ def index():
 @app.route("/data")
 def data():
     return jsonify([
-        {"value": "foo"},
-        {"value": "bar"},
-        {"value": "baz"},])
+        {"value": "blah"} for _ in range(1000000)])
 
 if __name__ == '__main__':
     app.run(

@@ -1,11 +1,22 @@
 $(document).ready(function() {
    $.get("/data", function(result) {
-       var html = "";
-       
-       for ( var item of result ) {
-           html += "<li>" + item.value + "</li>";
+       function* getData() {
+           for ( var res of result ) {
+               yield res;
+           }
        }
        
-       $("#asyncList").append(html);
+       var data = getData();
+       
+       var loader = setInterval(function(){
+           var next = data.next();
+           if ( !next.done ) {
+               var listItem = "<li>" + next.value.value + "</li>";
+               $("#asyncList").append(listItem);
+           } else {
+               clearInterval(loader);
+               $("#asyncList").append("<li>END</li>");
+           }
+       }, 1000);
    });
 });
